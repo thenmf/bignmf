@@ -1,4 +1,4 @@
-from lib.JointNmfClass import JointNmfClass
+from JointNmfClass import JointNmfClass
 import numpy as np
 
 
@@ -19,7 +19,7 @@ class StandardNmfClass(JointNmfClass):
         numerator = np.zeros(w.shape)
         denominator = np.zeros((w.shape[1], w.shape[1]))
 
-        for key, value in self.x.items():
+        for key in self.x:
             numerator = numerator + np.dot(self.x[key], self.h[key].T)
             denominator = denominator + np.dot(self.h[key], self.h[key].T)
             self.h[key] = self.h[key] * np.dot(w.T, self.x[key]) / np.dot(np.dot(w.T, w), self.h[key])

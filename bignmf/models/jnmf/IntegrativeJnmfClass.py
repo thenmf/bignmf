@@ -1,4 +1,4 @@
-from lib.JointNmfClass import JointNmfClass
+from JointNmfClass import JointNmfClass
 import numpy as np
 
 

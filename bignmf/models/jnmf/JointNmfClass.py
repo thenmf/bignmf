@@ -1,7 +1,9 @@
-from lib.functions import reorderConsensusMatrix, calc_cophenetic_correlation
 import numpy as np
 import pandas as pd
 import random
+from scipy.cluster.hierarchy import linkage, leaves_list, cophenet
+import fastcluster as fc
+from scipy.spatial.distance import squareform
 
 def classify_by_max(x: np.array):
     return (x == np.amax(x, axis=0)).astype(float)
@@ -141,3 +143,22 @@ class JointNmfClass:
 
     def initialize_wh(self):
         raise NotImplementedError("Must override initialize_wh")
+
+def reorderConsensusMatrix(M: np.array):
+    M = pd.DataFrame(M)
+    Y = 1 - M
+    Z = linkage(squareform(Y), method='average')
+    ivl = leaves_list(Z)
+    ivl = ivl[::-1]
+    reorderM = pd.DataFrame(M.values[:, ivl][ivl, :], index=M.columns[ivl], columns=M.columns[ivl])
+    return reorderM.values
+
+def calc_cophenetic_correlation(consensus_matrix):
+    ori_dists = fc.pdist(consensus_matrix)
+    Z = fc.linkage(ori_dists, method='average')
+    [coph_corr, coph_dists] = cophenet(Z, ori_dists)
+    return coph_corr
+
+def cluster_data(x: np.array):
+    a = (x == np.amax(x, axis=0)).astype(float)
+    return a.T.sort_values(by=list(a.index)).T
