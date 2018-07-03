@@ -9,6 +9,7 @@ class StandardNmfClass(JointNmfClass):
     def initialize_wh(self):
         number_of_samples = list(self.x.values())[0].shape[0]
         self.w = np.random.rand(number_of_samples, self.k)
+        self.eps = np.finfo(self.W.values.dtype).eps
         
         self.h = {}
         for key in self.x:
@@ -21,8 +22,12 @@ class StandardNmfClass(JointNmfClass):
 
         for key in self.x:
             numerator = numerator + np.dot(self.x[key], self.h[key].T)
-            denominator = denominator + np.dot(self.h[key], self.h[key].T)
-            self.h[key] = self.h[key] * np.dot(w.T, self.x[key]) / np.dot(np.dot(w.T, w), self.h[key])
+            denominator = denominator + np.dot(np.dot(self.w, self.h[key]), self.h[key].T)
 
-        self.w = self.w * numerator / np.dot(w, denominator)
+        self.w = self.w * numerator / denominator
+        #self.w = self.w * numerator / np.dot(w, denominator)
+
+        for key in self.x:
+            self.h[key] = np.multiply(self.h[key], np.divide(np.dot(self.W.T, self.X), np.dot(self.W.T, np.dot(self.W, self.h[key]) + self.eps)))
+            #self.h[key] = self.h[key] * np.dot(w.T, self.x[key]) / np.dot(np.dot(w.T, w), self.h[key])
         self.calc_error()
