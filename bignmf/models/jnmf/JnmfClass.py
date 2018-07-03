@@ -4,10 +4,10 @@ import random
 from scipy.cluster.hierarchy import linkage, leaves_list, cophenet
 import fastcluster as fc
 from scipy.spatial.distance import squareform
+from abc import ABC, abstractmethod
 
 def classify_by_max(x: np.array):
     return (x == np.amax(x, axis=0)).astype(float)
-
 
 def classify_by_z(x: np.array, thresh):
     a = (x - np.mean(x, axis=1).reshape((-1, 1))) / (np.std(x, axis=1)).reshape((-1, 1))
@@ -15,10 +15,28 @@ def classify_by_z(x: np.array, thresh):
     classification[a > thresh] = 1
     return classification
 
+def reorderConsensusMatrix(M: np.array):
+    M = pd.DataFrame(M)
+    Y = 1 - M
+    Z = linkage(squareform(Y), method='average')
+    ivl = leaves_list(Z)
+    ivl = ivl[::-1]
+    reorderM = pd.DataFrame(M.values[:, ivl][ivl, :], index=M.columns[ivl], columns=M.columns[ivl])
+    return reorderM.values
+
+def calc_cophenetic_correlation(consensus_matrix):
+    ori_dists = fc.pdist(consensus_matrix)
+    Z = fc.linkage(ori_dists, method='average')
+    [coph_corr, coph_dists] = cophenet(Z, ori_dists)
+    return coph_corr
+
+def cluster_data(x: np.array):
+    a = (x == np.amax(x, axis=0)).astype(float)
+    return a.T.sort_values(by=list(a.index)).T
 
 # Abstract Class - Do not instantiate this class
 # Returns all the matrices as a DataFrame
-class JointNmfClass:
+class JointNmfClass(ABC):
     def __init__(self, x: dict, k: int, niter: int, super_niter: int, thresh: float):
         if str(type(list(x.values())[0])) == "<class 'pandas.core.frame.DataFrame'>":
             self.column_index={}
@@ -137,28 +155,11 @@ class JointNmfClass:
         self.error = 0
         for key in self.x:
             self.error += np.mean(np.abs(self.x[key] - np.dot(self.w, self.h[key])))
-
+    
+    @abstractmethod
     def update_weights(self):
         raise NotImplementedError("Must override update_weights")
-
+    
+    @abstractmethod
     def initialize_wh(self):
         raise NotImplementedError("Must override initialize_wh")
-
-def reorderConsensusMatrix(M: np.array):
-    M = pd.DataFrame(M)
-    Y = 1 - M
-    Z = linkage(squareform(Y), method='average')
-    ivl = leaves_list(Z)
-    ivl = ivl[::-1]
-    reorderM = pd.DataFrame(M.values[:, ivl][ivl, :], index=M.columns[ivl], columns=M.columns[ivl])
-    return reorderM.values
-
-def calc_cophenetic_correlation(consensus_matrix):
-    ori_dists = fc.pdist(consensus_matrix)
-    Z = fc.linkage(ori_dists, method='average')
-    [coph_corr, coph_dists] = cophenet(Z, ori_dists)
-    return coph_corr
-
-def cluster_data(x: np.array):
-    a = (x == np.amax(x, axis=0)).astype(float)
-    return a.T.sort_values(by=list(a.index)).T

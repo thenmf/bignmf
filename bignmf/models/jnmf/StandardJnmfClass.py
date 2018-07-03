@@ -1,4 +1,4 @@
-from JointNmfClass import JointNmfClass
+from models.jnmf.JointNmfClass import JointNmfClass
 import numpy as np
 
 
