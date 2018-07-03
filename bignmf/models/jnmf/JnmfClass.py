@@ -27,7 +27,7 @@ def reorderConsensusMatrix(M: np.array):
 def calc_cophenetic_correlation(consensus_matrix):
     ori_dists = fc.pdist(consensus_matrix)
     Z = fc.linkage(ori_dists, method='average')
-    [coph_corr, coph_dists] = cophenet(Z, ori_dists)
+    [coph_corr,] = cophenet(Z, ori_dists)
     return coph_corr
 
 def cluster_data(x: np.array):
