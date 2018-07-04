@@ -1,14 +1,12 @@
 import numpy as np
 import pandas as pd
 import random
-from scipy.cluster.hierarchy import linkage, leaves_list, cophenet
-import fastcluster as fc
-from scipy.spatial.distance import squareform
 from abc import ABC, abstractmethod
+from models.nmf import Nmf
 
 # Abstract Class - Do not instantiate this class
 # Returns all the matrices as a DataFrame
-class SingleNmfClass(ABC):
+class SingleNmfClass(Nmf):
     def __init__(self, x: pd.DataFrame, k: int):
         """Initialize the class and assign vales to class variables
 
@@ -16,16 +14,11 @@ class SingleNmfClass(ABC):
             x {dataframe} -- input matrix on which we have to do NMF
             k {int} -- rank for factorization
         """
-        if str(type(list(x.values())[0])) == "<class 'pandas.core.frame.DataFrame'>":
-            self.x = x.values
-        else:
-            raise ValueError("Invalid DataType")
-
-        self.k = k
-
+        super().__init__(k)
+        self.row_index = list(x.index)
+        self.column_index = list(x)
+        self.x = x.values
         self.error = float('inf')
-
-        self.eps = np.finfo(list(self.x.values())[0].dtype).eps
 
     def initialize_variables(self):
         """Initializes consensus matrices. It is run before the iterations of the various trials""" 
@@ -33,24 +26,51 @@ class SingleNmfClass(ABC):
         self.consensus_matrix_h = np.zeros((self.x.shape[1], self.x.shape[1]))
 
     def run(self, trials, iterations, verbose=0):
-        """Wrapper function that runs across the different trials
+        """Runs the NMF algorithm for the specified iterations over the specified trials
+        
+        Arguments:
+            trials {int} -- Number of different trials
+            iterations {int} -- Number of iterations
         
         Keyword Arguments:
-            verbose {bool} -- for more verbosity (default: {0})
+            verbose {bool} -- To increase verbosity (default: {0})
         """
         self.initialize_variables()
         for i in range(0, trials):
             self.initialize_wh()
-            self.wrapper_update(iterations, verbose)
-            self.calc_connnectivity_matrix(consensus_matrix_w)
-            self.calc_connnectivity_matrix(consensus_matrix_h.T)
-
+            self.wrapper_update(iterations, verbose if i==0 else 0)
+            self.consensus_matrix_w += self.connectivity_matrix(self.w, axis=1)
+            self.consensus_matrix_h += self.connectivity_matrix(self.h, axis=0)
             if verbose == 1:
                 print("\tTrial: %i completed with Error: %f " % (i, self.error))
+        # Normalization
+        self.consensus_matrix_w = self.reorder_consensus_matrix(self.consensus_matrix_w / trials)
+        self.consensus_matrix_h = self.reorder_consensus_matrix(self.consensus_matrix_h / trials)
+        # Converting values to DataFrames
+        class_list = ["class-%i" % a for a in list(range(self.k))]
+        self.w = pd.DataFrame(self.w, index=self.row_index, columns=class_list)
+        self.h = pd.DataFrame(self.h, index=class_list, columns=self.column_index)
 
     def calc_error(self):
-        """Calculate error which is the difference between input matrix and product of NMF products"""
+        """Calculates the euclidean distance error with the following formulae.
+        """
+        self.error = 0
         self.error = np.mean(np.abs(self.x - np.dot(self.w, self.h)))
+
+    def calc_cophenetic_correlation(self):    
+        """Calculated the cophentic correlation co-efficients and stores it in the instance
+        """
+        self.cophenetic_correlation_w = self.cophenetic_correlation(self.consensus_matrix_w)
+        self.cophenetic_correlation_h = self.cophenetic_correlation(self.consensus_matrix_h)
+
+    def cluster_data(self):
+        """Clusters the output matrices, W and the other H matrices  """
+        self.w_cluster = self.cluster_matrix(self.w, 1)
+        self.h_cluster = self.cluster_matrix(self.h, 0)
+
+    def calc_consensus_matrices(self):
+        self.consensus_matrix_w = self.reorder_consensus_matrix(self.consensus_matrix_w)
+        self.consensus_matrix_h = self.reorder_consensus_matrix(self.consensus_matrix_h)
     
     @abstractmethod
     def update_weights(self):

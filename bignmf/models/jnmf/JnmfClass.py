@@ -2,9 +2,7 @@ import numpy as np
 import pandas as pd
 import random
 from abc import ABC, abstractmethod
-from models.Nmf import Nmf
-
-
+from models.nmf import Nmf
 
 # Abstract Class - Do not instantiate this class
 # Returns all the matrices as a DataFrame
@@ -14,7 +12,7 @@ class JointNmfClass(Nmf):
         if str(type(list(x.values())[0])) == "<class 'pandas.core.frame.DataFrame'>":
             self.column_index={}
             self.x={}
-            self.row_index=list(random.choice(list(x.values())).index)
+            self.row_index=list(list(x.values())[0].index)
             for key in x:
                 self.column_index[key] = list(x[key].columns)
                 self.x[key] = x[key].values
@@ -73,10 +71,10 @@ class JointNmfClass(Nmf):
     def cluster_data(self):
         """Clusters the output matrices, W and the other H matrices
         """
-        self.w_class = self.cluster_matrix(self.w, 1)
-        self.max_class = {}
+        self.w_cluster = self.cluster_matrix(self.w, 1)
+        self.h_cluster = {}
         for key, val in self.h.items():
-            self.max_class[key] = self.cluster_matrix(val,0)
+            self.h_cluster[key] = self.cluster_matrix(val,0)
 
     def calc_consensus_matrices(self):
         self.consensus_matrix_w = self.reorder_consensus_matrix(self.consensus_matrix_w)
