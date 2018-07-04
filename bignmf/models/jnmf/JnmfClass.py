@@ -1,43 +1,16 @@
 import numpy as np
 import pandas as pd
 import random
-from scipy.cluster.hierarchy import linkage, leaves_list, cophenet
-import fastcluster as fc
-from scipy.spatial.distance import squareform
 from abc import ABC, abstractmethod
+from models.Nmf import Nmf
 
-def classify_by_max(x: np.array):
-    return (x == np.amax(x, axis=0)).astype(float)
 
-def classify_by_z(x: np.array, thresh):
-    a = (x - np.mean(x, axis=1).reshape((-1, 1))) / (np.std(x, axis=1)).reshape((-1, 1))
-    classification = np.zeros(a.shape)
-    classification[a > thresh] = 1
-    return classification
-
-def reorderConsensusMatrix(M: np.array):
-    M = pd.DataFrame(M)
-    Y = 1 - M
-    Z = linkage(squareform(Y), method='average')
-    ivl = leaves_list(Z)
-    ivl = ivl[::-1]
-    reorderM = pd.DataFrame(M.values[:, ivl][ivl, :], index=M.columns[ivl], columns=M.columns[ivl])
-    return reorderM.values
-
-def calc_cophenetic_correlation(consensus_matrix):
-    ori_dists = fc.pdist(consensus_matrix)
-    Z = fc.linkage(ori_dists, method='average')
-    [coph_corr,] = cophenet(Z, ori_dists)
-    return coph_corr
-
-def cluster_data(x: np.array):
-    a = (x == np.amax(x, axis=0)).astype(float)
-    return a.T.sort_values(by=list(a.index)).T
 
 # Abstract Class - Do not instantiate this class
 # Returns all the matrices as a DataFrame
-class JointNmfClass(ABC):
-    def __init__(self, x: dict, k: int, niter: int, super_niter: int, thresh: float):
+class JointNmfClass(Nmf):
+    def __init__(self, x: dict, k: int):
+        super().__init__(k)
         if str(type(list(x.values())[0])) == "<class 'pandas.core.frame.DataFrame'>":
             self.column_index={}
             self.x={}
@@ -49,109 +22,71 @@ class JointNmfClass(ABC):
                     raise ValueError("Row indices are not uniform")
         else:
             raise ValueError("Invalid DataType")
-
-        self.k = k
-        self.niter = niter
-        self.super_niter = super_niter
-        self.cmw = None
-        self.w = None
-        self.h = None
-        self.thresh = thresh
         self.error = float('inf')
         self.eps = np.finfo(list(self.x.values())[0].dtype).eps
 
     def initialize_variables(self):
-        """Initializes all the variables except the w and h. It is run before the iterations of the various trials""" 
+        """Initializes all the variables except the w and h. It is run before the iterations of the various trials.""" 
         number_of_samples = list(self.x.values())[0].shape[0]
-
-        self.cmw = np.zeros((number_of_samples, number_of_samples))
-        self.max_class = {}
-        self.max_class_cm = {}
-        self.z_score = {}
-        self.coph_corr_w = None
-        self.coph_corr_h = {}
+        self.consensus_matrix_w = np.zeros((number_of_samples, number_of_samples))
+        self.consensus_matrix_h = {}
         for key in self.x:
             number_of_features = self.x[key].shape[1]
-            self.max_class[key] = np.zeros((self.k, number_of_features))
-            self.max_class_cm[key] = np.zeros((number_of_features, number_of_features))
-            self.coph_corr_h[key] = None
-
-    def wrapper_update(self, verbose=0):
-        for i in range(1, self.niter):
-            self.update_weights()
-            if verbose == 1 and i % 1 == 0:
-                print("\t\titer: %i | error: %f" % (i, self.error))
+            self.consensus_matrix_h[key] = np.zeros((number_of_features, number_of_features))
     
-    def super_wrapper(self, verbose=0):
-        """Wrapper function that runs across the different trials
+    def run(self, trials, iterations, verbose=0):
+        """Runs the NMF algorithm for the specified iterations over the specified trials
+        
+        Arguments:
+            trials {int} -- Number of different trials
+            iterations {int} -- Number of iterations
         
         Keyword Arguments:
-            verbose {bool} -- for more verbosity (default: {0})
+            verbose {bool} -- To increase verbosity (default: {0})
         """
         self.initialize_variables()
-        for i in range(0, self.super_niter):
+        for i in range(0, trials):
             self.initialize_wh()
-            self.wrapper_update(verbose if i==0 else 0) 
-            self.cmw += self.connectivity_matrix_w()
+            self.wrapper_update(iterations, verbose if i==0 else 0) 
+            self.consensus_matrix_w += self.connectivity_matrix(self.w, axis=1)
             for key in self.h:
-                connectivity_matrix = lambda a: np.dot(a.T, a)
-                self.max_class_cm[key] += connectivity_matrix(classify_by_max(self.h[key]))
-
+                self.consensus_matrix_h[key] += self.connectivity_matrix(self.h[key], axis=0)
             if verbose == 1:
                 print("\tSuper iteration: %i completed with Error: %f " % (i, self.error))
-
-
-
         # Normalization
-        self.cmw = reorderConsensusMatrix(self.cmw / self.super_niter)
-        
-        #Cophenetic Correlation
-        self.coph_corr_w = calc_cophenetic_correlation(self.cmw)
-        for key, cmh in self.max_class_cm.items():
-            self.coph_corr_h[key] = calc_cophenetic_correlation(cmh)
-
-        #Reordering Consensus Matrix
+        self.consensus_matrix_w = self.reorder_consensus_matrix(self.consensus_matrix_w / trials)
         for key in self.h:
-            self.max_class_cm[key] /= self.super_niter
-            self.max_class_cm[key] = reorderConsensusMatrix(self.max_class_cm[key])
-
-        # Classification
-        for key, val in self.h.items():
-            self.max_class[key] = classify_by_max(val)
-
+            self.consensus_matrix_h[key] /= trials
         # Converting values to DataFrames
         class_list = ["class-%i" % a for a in list(range(self.k))]
         self.w = pd.DataFrame(self.w, index=self.row_index, columns=class_list)
+        self.h = {k: pd.DataFrame(self.h[k], index=class_list, columns=self.column_index[k]) for k in self.h}
 
-        self.h = self.conv_dict_np_to_df(self.h)
-        self.max_class = self.conv_dict_np_to_df(self.max_class)
+    def calc_cophenetic_correlation(self):    
+        """Calculated the cophentic correlation co-efficients and stores it in the instance
+        """
+        self.cophenetic_correlation_w = self.cophenetic_correlation(self.consensus_matrix_w)
+        self.cophenetic_correlation_h = {}
+        for key, cmh in self.consensus_matrix_h.items():
+            self.cophenetic_correlation_h[key] = self.cophenetic_correlation(cmh)
 
-    def conv_dict_np_to_df(self, a: dict):
-        """[Converts the passed 'h' like attribute from numpy to dataframe ]
-        'h' like attributes are dictionaries with the keys being the names of the different passed datasets
+    def cluster_data(self):
+        """Clusters the output matrices, W and the other H matrices
+        """
+        self.w_class = self.cluster_matrix(self.w, 1)
+        self.max_class = {}
+        for key, val in self.h.items():
+            self.max_class[key] = self.cluster_matrix(val,0)
 
-        Arguments:
-            a {dict} -- [the 'h' like variable to be converted]
-        
-        Returns:
-            [dict] -- [the converted variable]
-        """ 
-        class_list = ["class-%i" % a for a in list(range(self.k))]
-        return {k: pd.DataFrame(a[k], index=class_list, columns=self.column_index[k]) for k in a}
+    def calc_consensus_matrices(self):
+        self.consensus_matrix_w = self.reorder_consensus_matrix(self.consensus_matrix_w)
+        for key, cmh in self.consensus_matrix_h.items():
+            self.consensus_matrix_h[key] = self.reorder_consensus_matrix(cmh)
 
-    # TODO - invalid value ocurred
-    def calc_z_score(self):
-        for key in self.h:
-            self.z_score[key] = (self.h[key] - np.mean(self.h[key], axis=1).reshape((-1, 1))) / (
-                    self.eps + np.std(self.h[key], axis=1).reshape((-1, 1)))
-
-    def connectivity_matrix_w(self):
-        max_tiled = np.tile(self.w.max(1).reshape((-1, 1)), (1, self.w.shape[1]))
-        max_index = np.zeros(self.w.shape)
-        max_index[self.w == max_tiled] = 1
-        return np.dot(max_index, max_index.T)
-
+    # TODO - Add docstring for the formulae
     def calc_error(self):
+        """Calculates the euclidean distance error with the following formulae.
+        """
         self.error = 0
         for key in self.x:
             self.error += np.mean(np.abs(self.x[key] - np.dot(self.w, self.h[key])))

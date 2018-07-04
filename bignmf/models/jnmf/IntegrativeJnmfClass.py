@@ -3,8 +3,15 @@ import numpy as np
 
 
 class IntegrativeNmfClass(JointNmfClass):
-    def __init__(self, x: dict, k: int, niter: int, super_niter: int, thresh: float, lamb: int):
-        super().__init__(x, k, niter, super_niter, thresh)
+    def __init__(self, x: dict, k: int, lamb: int):
+        """Initializes the class with Integrative NMF algorithm parameters
+        
+        Arguments:
+            x {dict} -- [Dictionary of the data]
+            k {int} -- [Rank]
+            lamb {int} -- [Hyper-parameter for the Integrative NMF algorithm that controls the rate of learning]
+        """
+        super().__init__(x, k)
         self.v = None
         self.lamb = lamb
         self.slamb = None
