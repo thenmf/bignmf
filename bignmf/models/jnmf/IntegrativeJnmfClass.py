@@ -17,6 +17,7 @@ class IntegrativeNmfClass(JointNmfClass):
         self.slamb = None
 
     def initialize_wh(self):
+        """Initializes W and H which are the coefficient and basis matrices respectively"""
         number_of_samples = list(self.x.values())[0].shape[0]
         self.w = np.random.rand(number_of_samples, self.k)
 
@@ -27,6 +28,7 @@ class IntegrativeNmfClass(JointNmfClass):
             self.v[key] = np.random.rand(number_of_samples, self.k)
 
     def update_weights(self):
+        """Updates W, H and V so that they converge in such a way that W.H = X"""
         w = self.w
         v = self.v
         h = self.h

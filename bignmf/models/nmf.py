@@ -7,7 +7,7 @@ from scipy.spatial.distance import squareform
 
 class Nmf(ABC):
     """Base abstract NMF class.
-    All Joint NMF and Single NMF classes ingerit from this class.
+    All Joint NMF and Single NMF classes inherit from this class.
 
     Attributes:
         k(int) : the rank with which the matrices will be factorised    
