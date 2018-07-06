@@ -1,12 +1,13 @@
 from bignmf.models.snmf.snmf_base import SnmfBase
 import numpy as np
+import pandas as pd 
 
 class StandardNmf(SnmfBase):
-	def __init__(self, x: dict, k: int):
+	def __init__(self, x: pd.DataFrame, k: int):
 		"""Initialize the class and assign vales to class variables.
 
 		Args:
-			x (dict): input matrix on which we have to do NMF
+			x (pd.DataFrame): input matrix on which we have to do NMF
 			k (int): rank for factorization
 		"""
 		super().__init__(x, k)

@@ -4,11 +4,11 @@ import pandas as pd
 from sklearn import preprocessing
 
 class SparseNmf(SnmfBase):
-	def __init__(self, x: dict, k: int, spars: int, beta: int):
+	def __init__(self, x: pd.DataFrame, k: int, spars: int, beta: int):
 		"""Initialize the class and assign vales to class variables.
 
 		Args:
-			x (dict): input matrix on which we have to do NMF
+			x (pd.DataFrame): input matrix on which we have to do NMF
 			k (int): rank for factorization
 			spars (int): sparsity factor
 			beta (int): exponential factor
