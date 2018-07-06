@@ -1,0 +1,210 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>models.snmf package &#8212; BigNMF  documentation</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="models-snmf-package">
+<h1>models.snmf package<a class="headerlink" href="#models-snmf-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-models.snmf.SnmfClass">
+<span id="models-snmf-snmfclass-module"></span><h2>models.snmf.SnmfClass module<a class="headerlink" href="#module-models.snmf.SnmfClass" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="models.snmf.SnmfClass.SingleNmfClass">
+<em class="property">class </em><code class="descclassname">models.snmf.SnmfClass.</code><code class="descname">SingleNmfClass</code><span class="sig-paren">(</span><em>x: pandas.core.frame.DataFrame</em>, <em>k: int</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/models/snmf/SnmfClass.html#SingleNmfClass"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#models.snmf.SnmfClass.SingleNmfClass" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="models.html#models.nmf.Nmf" title="models.nmf.Nmf"><code class="xref py py-class docutils literal notranslate"><span class="pre">models.nmf.Nmf</span></code></a></p>
+<dl class="method">
+<dt id="models.snmf.SnmfClass.SingleNmfClass.calc_consensus_matrices">
+<code class="descname">calc_consensus_matrices</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/models/snmf/SnmfClass.html#SingleNmfClass.calc_consensus_matrices"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#models.snmf.SnmfClass.SingleNmfClass.calc_consensus_matrices" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="models.snmf.SnmfClass.SingleNmfClass.calc_cophenetic_correlation">
+<code class="descname">calc_cophenetic_correlation</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/models/snmf/SnmfClass.html#SingleNmfClass.calc_cophenetic_correlation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#models.snmf.SnmfClass.SingleNmfClass.calc_cophenetic_correlation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculated the cophentic correlation co-efficients and stores it in the instance.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="models.snmf.SnmfClass.SingleNmfClass.calc_error">
+<code class="descname">calc_error</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/models/snmf/SnmfClass.html#SingleNmfClass.calc_error"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#models.snmf.SnmfClass.SingleNmfClass.calc_error" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the euclidean distance error with the following formulae.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="models.snmf.SnmfClass.SingleNmfClass.cluster_data">
+<code class="descname">cluster_data</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/models/snmf/SnmfClass.html#SingleNmfClass.cluster_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#models.snmf.SnmfClass.SingleNmfClass.cluster_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Clusters the output matrices, W and the other H matrices.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="models.snmf.SnmfClass.SingleNmfClass.initialize_variables">
+<code class="descname">initialize_variables</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/models/snmf/SnmfClass.html#SingleNmfClass.initialize_variables"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#models.snmf.SnmfClass.SingleNmfClass.initialize_variables" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initializes consensus matrices. It is run before the iterations of the various trials</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="models.snmf.SnmfClass.SingleNmfClass.initialize_wh">
+<code class="descname">initialize_wh</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/models/snmf/SnmfClass.html#SingleNmfClass.initialize_wh"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#models.snmf.SnmfClass.SingleNmfClass.initialize_wh" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="models.snmf.SnmfClass.SingleNmfClass.run">
+<code class="descname">run</code><span class="sig-paren">(</span><em>trials</em>, <em>iterations</em>, <em>verbose=0</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/models/snmf/SnmfClass.html#SingleNmfClass.run"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#models.snmf.SnmfClass.SingleNmfClass.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Runs the NMF algorithm for the specified iterations over the specified trials</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>trials (int}: Number of different trials.
+iterations (int}: Number of iterations.
+verbose (bool): To increase verbosity. Defaults to 0.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="models.snmf.SnmfClass.SingleNmfClass.update_weights">
+<code class="descname">update_weights</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/models/snmf/SnmfClass.html#SingleNmfClass.update_weights"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#models.snmf.SnmfClass.SingleNmfClass.update_weights" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-models.snmf.SparseNmfClass">
+<span id="models-snmf-sparsenmfclass-module"></span><h2>models.snmf.SparseNmfClass module<a class="headerlink" href="#module-models.snmf.SparseNmfClass" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="models.snmf.SparseNmfClass.SparseNmfClass">
+<em class="property">class </em><code class="descclassname">models.snmf.SparseNmfClass.</code><code class="descname">SparseNmfClass</code><span class="sig-paren">(</span><em>x: dict</em>, <em>k: int</em>, <em>spars: int</em>, <em>beta: int</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/models/snmf/SparseNmfClass.html#SparseNmfClass"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#models.snmf.SparseNmfClass.SparseNmfClass" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#models.snmf.SnmfClass.SingleNmfClass" title="models.snmf.SnmfClass.SingleNmfClass"><code class="xref py py-class docutils literal notranslate"><span class="pre">models.snmf.SnmfClass.SingleNmfClass</span></code></a></p>
+<dl class="method">
+<dt id="models.snmf.SparseNmfClass.SparseNmfClass.initialize_wh">
+<code class="descname">initialize_wh</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/models/snmf/SparseNmfClass.html#SparseNmfClass.initialize_wh"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#models.snmf.SparseNmfClass.SparseNmfClass.initialize_wh" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initializes the variables that will be required for Sparse NMF.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="models.snmf.SparseNmfClass.SparseNmfClass.update_weights">
+<code class="descname">update_weights</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/models/snmf/SparseNmfClass.html#SparseNmfClass.update_weights"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#models.snmf.SparseNmfClass.SparseNmfClass.update_weights" title="Permalink to this definition">¶</a></dt>
+<dd><p>Updates W,H and A so that they converge in such a way that W.H = X</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-models.snmf.StandardNmfClass">
+<span id="models-snmf-standardnmfclass-module"></span><h2>models.snmf.StandardNmfClass module<a class="headerlink" href="#module-models.snmf.StandardNmfClass" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="models.snmf.StandardNmfClass.StandardNmfClass">
+<em class="property">class </em><code class="descclassname">models.snmf.StandardNmfClass.</code><code class="descname">StandardNmfClass</code><span class="sig-paren">(</span><em>x: dict</em>, <em>k: int</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/models/snmf/StandardNmfClass.html#StandardNmfClass"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#models.snmf.StandardNmfClass.StandardNmfClass" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#models.snmf.SnmfClass.SingleNmfClass" title="models.snmf.SnmfClass.SingleNmfClass"><code class="xref py py-class docutils literal notranslate"><span class="pre">models.snmf.SnmfClass.SingleNmfClass</span></code></a></p>
+<dl class="method">
+<dt id="models.snmf.StandardNmfClass.StandardNmfClass.initialize_wh">
+<code class="descname">initialize_wh</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/models/snmf/StandardNmfClass.html#StandardNmfClass.initialize_wh"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#models.snmf.StandardNmfClass.StandardNmfClass.initialize_wh" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initializes the variables that will be required for Standard NMF.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="models.snmf.StandardNmfClass.StandardNmfClass.update_weights">
+<code class="descname">update_weights</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/models/snmf/StandardNmfClass.html#StandardNmfClass.update_weights"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#models.snmf.StandardNmfClass.StandardNmfClass.update_weights" title="Permalink to this definition">¶</a></dt>
+<dd><p>Updates W and H so that they converge in such a way that W.H = X</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-models.snmf">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-models.snmf" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">models.snmf package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-models.snmf.SnmfClass">models.snmf.SnmfClass module</a></li>
+<li><a class="reference internal" href="#module-models.snmf.SparseNmfClass">models.snmf.SparseNmfClass module</a></li>
+<li><a class="reference internal" href="#module-models.snmf.StandardNmfClass">models.snmf.StandardNmfClass module</a></li>
+<li><a class="reference internal" href="#module-models.snmf">Module contents</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/source/models.snmf.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2018, Vaibhav Kulshrestha and Haran Rajkumar.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.7.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.11</a>
+      
+      |
+      <a href="../_sources/source/models.snmf.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
