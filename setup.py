@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="bignmf",
-    version="0.0.3",
+    version="0.0.4",
     author="Haran Rajkumar, Vaibhav Kulshrestha",
     author_email="haranrajkumar97@gmail.com, vaibhav1kulshrestha@gmail.com",
     description="Non-negative matrix factorization",
@@ -17,5 +17,12 @@ setuptools.setup(
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
-    )
+    ),
+    install_requires=[
+        'numpy',
+        'pandas',
+        'fastcluster',
+        'scipy'
+    ]
+
 )
