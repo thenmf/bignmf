@@ -2,11 +2,11 @@ import numpy as np
 import pandas as pd
 import random
 from abc import ABC, abstractmethod
-from bignmf.models.nmf import Nmf
+from bignmf.models.nmf import NmfBase
 
 # Abstract Class - Do not instantiate this class
 # Returns all the matrices as a DataFrame
-class SingleNmfClass(Nmf):
+class SnmfBase(NmfBase):
 	def __init__(self, x: pd.DataFrame, k: int):
 		"""Initialize the class and assign vales to class variables and all single nmf classes inherit from this.
 

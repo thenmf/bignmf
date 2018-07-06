@@ -1,7 +1,7 @@
-from bignmf.models.snmf.SnmfClass import SingleNmfClass
+from bignmf.models.snmf.snmf_base import SnmfBase
 import numpy as np
 
-class StandardNmfClass(SingleNmfClass):
+class StandardNmf(SnmfBase):
 	def __init__(self, x: dict, k: int):
 		"""Initialize the class and assign vales to class variables.
 

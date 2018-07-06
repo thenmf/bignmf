@@ -1,9 +1,9 @@
-from bignmf.models.snmf.SnmfClass import SingleNmfClass
+from bignmf.models.snmf.snmf_base import SnmfBase
 import numpy as np
 import pandas as pd
 from sklearn import preprocessing
 
-class SparseNmfClass(SingleNmfClass):
+class SparseNmf(SnmfBase):
 	def __init__(self, x: dict, k: int, spars: int, beta: int):
 		"""Initialize the class and assign vales to class variables.
 

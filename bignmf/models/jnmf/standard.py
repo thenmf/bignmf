@@ -1,7 +1,7 @@
-from bignmf.models.jnmf.JnmfClass import JointNmfClass
+from bignmf.models.jnmf.jnmf_base import JnmfBase
 import numpy as np
 
-class StandardNmfClass(JointNmfClass):
+class StandardNmf(JnmfBase):
 	def __init__(self, x: dict, k: int):
 		"""Initializes the class with Integrative NMF algorithm parameters
 		

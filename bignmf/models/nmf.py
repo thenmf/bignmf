@@ -5,7 +5,7 @@ from scipy.cluster.hierarchy import linkage, leaves_list, cophenet
 import fastcluster as fc
 from scipy.spatial.distance import squareform
 
-class Nmf(ABC):
+class NmfBase(ABC):
 	"""Base abstract NMF class.
 	All Joint NMF and Single NMF classes inherit from this class.   
 	"""
