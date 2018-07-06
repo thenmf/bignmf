@@ -23,6 +23,9 @@ class Datasets():
 
     	Args:
         	data (str): Specifies the path of data to be read.
+		
+		Returns:
+			pd.DataFrame: The specified dataset
     	"""
 		X = pd.read_csv(r'%s.csv' % (data), index_col=0, header=0, na_values='NaN')
 		X = X.fillna(0)
