@@ -1,4 +1,4 @@
-from models.snmf.SnmfClass import SingleNmfClass
+from bignmf.models.snmf.SnmfClass import SingleNmfClass
 import numpy as np
 
 class StandardNmfClass(SingleNmfClass):

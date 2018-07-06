@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 import random
 from abc import ABC, abstractmethod
-from models.nmf import Nmf
+from bignmf.models.nmf import Nmf
 
 # Abstract Class - Do not instantiate this class
 # Returns all the matrices as a DataFrame
