@@ -81,6 +81,8 @@ class JointNmfClass(Nmf):
 			self.h_cluster[key] = self.cluster_matrix(val,0)
 
 	def calc_consensus_matrices(self):
+		"""Makes the final consensus matrix by reordering the consensus matrix
+		"""
 		self.consensus_matrix_w = self.reorder_consensus_matrix(self.consensus_matrix_w)
 		for key, cmh in self.consensus_matrix_h.items():
 			self.consensus_matrix_h[key] = self.reorder_consensus_matrix(cmh)
