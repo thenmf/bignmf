@@ -1,18 +1,31 @@
 from bignmf.models.jnmf.jnmf_base import JnmfBase
 import numpy as np
 
-class StandardNmf(JnmfBase):
+class StandardJnmf(JnmfBase):
+	"""Standard Joint NMF algorithm Class.
+
+	The Joint NMF algorithm first jointly factorizes the multiple input matrices into a common submatrix, ``W`` and several submatrices,
+	``Hi`` based on the number of input datasets. For more detailed information on the algorithm, here's the reference to the original paper.
+	
+	Hong-Qiang Wang et al. jNMFMA: a joint non-negative matrix factorization meta-analysis of transcriptomics data.
+	Bioinformatics(2015);31(4):572-580
+	
+	Args:
+		JnmfBase ([type]): [description]
+	"""
+
 	def __init__(self, x: dict, k: int):
 		"""Initializes the class with Integrative NMF algorithm parameters
 		
 		Args:
-			x (dict): Input matrices on which we have to do NMF
+			x (dict): Input matrices on which we have to do NMF. Dictionary containing the input matrices as DataFrames. 
+					  The common dimension between the matrices should be the row.
 			k (int): Rank for factorization
 		"""
 		super().__init__(x, k)
 
 	def initialize_wh(self):
-		"""Initializes the variables that will be required for Standard NMF."""
+		"""Initializes the model variables"""
 		number_of_samples = list(self.x.values())[0].shape[0]
 		self.w = np.random.rand(number_of_samples, self.k)
 		self.eps = np.finfo(self.w.dtype).eps
@@ -22,7 +35,7 @@ class StandardNmf(JnmfBase):
 			self.h[key] = np.random.rand(self.k, self.x[key].shape[1])
 
 	def update_weights(self):
-		"""Updates W and H so that they converge in such a way that W.H = X"""
+		"""Updates W and H so that they converge in such a way that :math:`W.H = X`"""
 		w = self.w
 		numerator = np.zeros(w.shape)
 		denominator = np.zeros(w.shape)

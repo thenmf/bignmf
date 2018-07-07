@@ -10,8 +10,9 @@ class JnmfBase(NmfBase):
 		"""Initialize the class and assign vales to class variables and all joint nmf classes inherit from this.
 
 		Args:
-			x (dict): input matrices on which we have to do NMF
-			k (int): rank for factorization
+			x (dict): Input matrices on which we have to do NMF. Dictionary containing the input matrices as DataFrames. 
+					  The common dimension between the matrices should be the row.
+			k (int): Rank for factorization
 		"""
 		super().__init__(k)
 		if str(type(list(x.values())[0])) == "<class 'pandas.core.frame.DataFrame'>":

@@ -33,6 +33,7 @@ model.cluster_data()
 model.calc_consensus_matrices()
 print(model.h_cluster)
 ```
+
 ### 2. Joint NMF
 
 ```python
@@ -47,7 +48,7 @@ data_dict["sim2"] = Datasets.read("SimulatedX2")
 k = 3
 iter =100
 trials = 50
-lamb = 0.1 
+lamb = 0.1
 
 model = IntegrativeJnmf(data_dict, k, lamb)
 model = StandardNmf(data,k)
