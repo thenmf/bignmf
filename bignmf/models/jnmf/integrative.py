@@ -2,10 +2,13 @@ from bignmf.models.jnmf.jnmf_base import JnmfBase
 import numpy as np
 
 class IntegrativeJnmf(JnmfBase):
-	"""Inte
-	
-	Args:
-		JnmfBase ([type]): [description]
+	"""Integrative Joint NMF class.
+
+	Integrative NMF is a variation of the standard Joint NMF algorithm that enforces stronger correlation between the matrices.
+	For more detailed information on the algorithm, here's the reference to the original paper.
+
+		Chalise P, Fridley BL (2017) Integrative clustering of multi-level ‘omic data based on non-negative matrix factorization algorithm.
+		PLoS ONE 12(5): e0176278. 
 	"""
 
 	def __init__(self, x: dict, k: int, lamb: int):
@@ -18,16 +21,16 @@ class IntegrativeJnmf(JnmfBase):
 			lamb (int): Hyper-parameter for the Integrative NMF algorithm that controls the rate of learning
 		"""
 		super().__init__(x, k)
-		self.v = None
 		self.lamb = lamb
 		self.slamb = None
 
 	def initialize_wh(self):
 		"""Initializes the model variables
-			:math: `n` = number of 
-
-			Parameters:
-				W: Common submatrix with dimension
+			
+			Model Variables:
+				W: Common submatrix 
+				H: Dictionary of submatrices for each of the individual datasets with the same keys as the input dictionary 
+				V: An integrative NMF variable with dimensions the same as ``H``
 		"""
 		number_of_samples = list(self.x.values())[0].shape[0]
 		self.w = np.random.rand(number_of_samples, self.k)
@@ -39,7 +42,7 @@ class IntegrativeJnmf(JnmfBase):
 			self.v[key] = np.random.rand(number_of_samples, self.k)
 
 	def update_weights(self):
-		"""Updates W, H and V so that they converge in such a way that W.H = X"""
+		"""Updates the model variables so that they converge towards :mat:`W.H = X`"""
 		w = self.w
 		v = self.v
 		h = self.h

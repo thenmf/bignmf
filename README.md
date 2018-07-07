@@ -58,3 +58,5 @@ model.cluster_data()
 model.calc_consensus_matrices()
 print(model.h_cluster)
 ```
+
+[Here](https://thenmf.github.io/build/html/index.html) is the extensive documentation for more details. 

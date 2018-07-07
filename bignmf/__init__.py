@@ -1,4 +1,4 @@
-__license__ = 'BSD'
-__version__ = '1.3.4'
-__maintainer__ = 'Marinka Zitnik'
-__email__ = 'marinka@cs.stanford.edu'
+__license__ = 'MIT'
+__version__ = '1.0.0'
+__maintainer__ = ['Haran Rajkumar', 'Vaibhav Kulshrehst']
+__email__ = ['haranrajkumar97@gmail.com', 'vaibhav1kulshrestha@gmail.com']

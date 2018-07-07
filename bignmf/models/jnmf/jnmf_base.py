@@ -6,9 +6,10 @@ from bignmf.models.nmf import NmfBase
 
 # Abstract Class - Do not instantiate this class
 class JnmfBase(NmfBase):
+	"""Base Joint NMF class from which all Joint NMF algorithms inherit from"""
 	def __init__(self, x: dict, k: int):
-		"""Initialize the class and assign vales to class variables and all joint nmf classes inherit from this.
-
+		"""Initalizes class variables.
+	
 		Args:
 			x (dict): Input matrices on which we have to do NMF. Dictionary containing the input matrices as DataFrames. 
 					  The common dimension between the matrices should be the row.
@@ -30,7 +31,7 @@ class JnmfBase(NmfBase):
 		self.eps = np.finfo(list(self.x.values())[0].dtype).eps
 
 	def initialize_variables(self):
-		"""Initializes all the variables except the w and h. It is run before the iterations of the various trials.""" 
+		"""Initializes the consensus variables. It is run before the iterations of the various trials""" 
 		number_of_samples = list(self.x.values())[0].shape[0]
 		self.consensus_matrix_w = np.zeros((number_of_samples, number_of_samples))
 		self.consensus_matrix_h = {}
@@ -97,14 +98,8 @@ class JnmfBase(NmfBase):
 	
 	@abstractmethod
 	def update_weights(self):
-		"""Updates W and H so that they converge in such a way that W.H = X
-		This method should be implemented in child classes.
-		"""
 		raise NotImplementedError("Must override update_weights")
 	
 	@abstractmethod
 	def initialize_wh(self):
-		"""Initializes the variables that will be required for Standard NMF. 
-		This method should be implemented in child classes.
-		"""
 		raise NotImplementedError("Must override initialize_wh")

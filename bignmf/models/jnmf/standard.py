@@ -13,7 +13,7 @@ class StandardJnmf(JnmfBase):
 	"""
 
 	def __init__(self, x: dict, k: int):
-		"""Initializes the class with Integrative NMF algorithm parameters
+		"""Initializes the class with Standard NMF algorithm parameters
 		
 		Args:
 			x (dict): Input matrices on which we have to do NMF. Dictionary containing the input matrices as DataFrames. 
@@ -23,7 +23,12 @@ class StandardJnmf(JnmfBase):
 		super().__init__(x, k)
 
 	def initialize_wh(self):
-		"""Initializes the model variables"""
+		"""Initializes the model variables for the Standard JNMF algorithm
+			
+			Model Variables:
+				W: Common submatrix 
+				H: Dictionary of submatrices for each of the individual datasets with the same keys as the input dictionary 
+		"""
 		number_of_samples = list(self.x.values())[0].shape[0]
 		self.w = np.random.rand(number_of_samples, self.k)
 		self.eps = np.finfo(self.w.dtype).eps
@@ -33,7 +38,7 @@ class StandardJnmf(JnmfBase):
 			self.h[key] = np.random.rand(self.k, self.x[key].shape[1])
 
 	def update_weights(self):
-		"""Updates W and H so that they converge in such a way that :math:`W.H = X`"""
+		"""Updates the model variables so that they converge towards :mat:`W.H = X`"""
 		w = self.w
 		numerator = np.zeros(w.shape)
 		denominator = np.zeros(w.shape)

@@ -35,11 +35,11 @@ class NmfBase(ABC):
 		"""Calculates the connecitivity matrix along the given axis.
 
 		The function first classifies the input matrix along the specified axis and then matrix multiplies it to itself
-		keeping the rank side common.
+		keeping the rank-side common.
 		
 		Args:
 			x (np.array): the input matrix.
-			axis {int}: axis along which the connectivity matrix should be classified. For W matrix, it's 1 
+			axis (int): axis along which the connectivity matrix should be classified. For W matrix, it's 1 
 			and for the H matrix it is 0.
 
 		Returns:
