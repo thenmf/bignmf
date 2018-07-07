@@ -59,4 +59,4 @@ model.calc_consensus_matrices()
 print(model.h_cluster)
 ```
 
-[Here](https://thenmf.github.io/build/html/index.html) is the extensive documentation for more details. 
+[Here](https://bignmf.readthedocs.io/en/latest/) is the extensive documentation for more details. 
