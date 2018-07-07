@@ -42,7 +42,7 @@ class IntegrativeJnmf(JnmfBase):
 			self.v[key] = np.random.rand(number_of_samples, self.k)
 
 	def update_weights(self):
-		"""Updates the model variables so that they converge towards :mat:`W.H = X`"""
+		"""Updates the model variables so that they converge towards :math:`W.H = X`"""
 		w = self.w
 		v = self.v
 		h = self.h
