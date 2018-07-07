@@ -42,8 +42,8 @@ class JnmfBase(NmfBase):
 		"""Runs the NMF algorithm for the specified iterations over the specified trials
 		
 		Args:
-			trials (int}: Number of different trials.
-			iterations (int}: Number of iterations.
+			trials (int): Number of different trials.
+			iterations (int): Number of iterations.
 			verbose (bool): To increase verbosity. Defaults to 0.
 		"""
 		self.initialize_variables()

@@ -24,7 +24,7 @@ class IntegrativeJnmf(JnmfBase):
 
 	def initialize_wh(self):
 		"""Initializes the model variables
-			:math: `n` = number of 
+			:math:`n` = number of 
 
 			Parameters:
 				W: Common submatrix with dimension
