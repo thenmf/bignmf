@@ -3,17 +3,30 @@ import numpy as np
 import pandas as pd 
 
 class StandardNmf(SnmfBase):
+	'''Standard Single NMF algorithm class
+
+	The algorithm facotrizes the input matrix into two subamtrices ``W`` and ``H``.
+	For more detailed information on the algorithm, here's the reference to the original paper.
+	
+		Lee et al. Learning the parts of objects by non-negative matrix factorization.
+		Nature(1999);401:788–791
+
+	'''
 	def __init__(self, x: pd.DataFrame, k: int):
 		"""Initialize the class and assign vales to class variables.
 
 		Args:
-			x (pd.DataFrame): input matrix on which we have to do NMF
-			k (int): rank for factorization
+			x (pd.DataFrame): Input matrix
+			k (int): Rank for factorization
 		"""
 		super().__init__(x, k)
 
 	def initialize_wh(self):
-		"""Initializes the variables that will be required for Standard NMF.
+		"""Initializes the model variables.
+			
+		Variables:
+			
+
 		"""
 		self.w = np.random.rand(self.x.shape[0], self.k)
 		self.eps = np.finfo(self.w.dtype).eps

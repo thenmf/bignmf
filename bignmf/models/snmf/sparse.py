@@ -4,6 +4,9 @@ import pandas as pd
 from sklearn import preprocessing
 
 class SparseNmf(SnmfBase):
+	'''
+	The update rule used in Sparse NMF has been taken from the paper Roux, J.L. (2015). Sparse NMF – half-baked or well done ?.
+	'''
 	def __init__(self, x: pd.DataFrame, k: int, spars: int, beta: int):
 		"""Initialize the class and assign vales to class variables.
 

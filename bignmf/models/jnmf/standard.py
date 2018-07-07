@@ -7,11 +7,9 @@ class StandardJnmf(JnmfBase):
 	The Joint NMF algorithm first jointly factorizes the multiple input matrices into a common submatrix, ``W`` and several submatrices,
 	``Hi`` based on the number of input datasets. For more detailed information on the algorithm, here's the reference to the original paper.
 	
-	Hong-Qiang Wang et al. jNMFMA: a joint non-negative matrix factorization meta-analysis of transcriptomics data.
-	Bioinformatics(2015);31(4):572-580
+		Hong-Qiang Wang et al. jNMFMA: a joint non-negative matrix factorization meta-analysis of transcriptomics data.
+		Bioinformatics(2015);31(4):572-580
 	
-	Args:
-		JnmfBase ([type]): [description]
 	"""
 
 	def __init__(self, x: dict, k: int):
