@@ -74,7 +74,7 @@ class JnmfBase(NmfBase):
 	def cluster_data(self):
 		"""Clusters the output matrices, W and the other H matrices
 		"""
-		self.w_cluster = self.cluster_matrix(self.w, 1)
+		self.w_cluster = self.cluster_matrix(self.w.T, 0).T
 		self.h_cluster = {}
 		for key, val in self.h.items():
 			self.h_cluster[key] = self.cluster_matrix(val,0)
