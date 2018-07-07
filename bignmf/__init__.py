@@ -1,4 +1,4 @@
 __license__ = 'MIT'
-__version__ = '1.0.0'
+__version__ = '1.0.3'
 __maintainer__ = ['Haran Rajkumar', 'Vaibhav Kulshrehst']
 __email__ = ['haranrajkumar97@gmail.com', 'vaibhav1kulshrestha@gmail.com']
