@@ -97,8 +97,14 @@ class JnmfBase(NmfBase):
 	
 	@abstractmethod
 	def update_weights(self):
+		"""Updates W and H so that they converge in such a way that W.H = X
+		This method should be implemented in child classes.
+		"""
 		raise NotImplementedError("Must override update_weights")
 	
 	@abstractmethod
 	def initialize_wh(self):
+		"""Initializes the variables that will be required for Standard NMF. 
+		This method should be implemented in child classes.
+		"""
 		raise NotImplementedError("Must override initialize_wh")
