@@ -33,7 +33,7 @@ class StandardNmf(SnmfBase):
 		self.h = np.random.rand(self.k, self.x.shape[1])
 
 	def update_weights(self):
-		"""Updates the model variables so that they converge towards :mat:`W.H = X`"""
+		"""Updates the model variables so that they converge towards :math:`W.H = X`"""
 		self.w = np.multiply(self.w, np.divide(np.dot(self.x, self.h.T), np.dot(np.dot(self.w, self.h), self.h.T)))
 		self.h = np.multiply(self.h, np.divide(np.dot(self.w.T, self.x), np.dot(self.w.T, np.dot(self.w, self.h) + self.eps)))
 		self.calc_error()

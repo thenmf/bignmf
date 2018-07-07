@@ -38,7 +38,7 @@ class StandardJnmf(JnmfBase):
 			self.h[key] = np.random.rand(self.k, self.x[key].shape[1])
 
 	def update_weights(self):
-		"""Updates the model variables so that they converge towards :mat:`W.H = X`"""
+		"""Updates the model variables so that they converge towards :math:`W.H = X`"""
 		w = self.w
 		numerator = np.zeros(w.shape)
 		denominator = np.zeros(w.shape)
