@@ -3,8 +3,8 @@ import numpy as np
 
 class StandardNmf(JnmfBase):
 	'''
-	The update rule used in Standard Joint NMF has been taken from the paper 'Learning the parts of objects by non-negative matrix factorization', 
-	by Lee, Daniel D. and Seung, H. Sebastian published in Nature.
+	This class uses the update rule described in Lee, D., & Seung, H. (1999). Learning the parts of objects by non-negative matrix factorization. (Nature volume 401, pages 788–791).
+	It has been slightly modified for Joint NMF.
 	'''
 	def __init__(self, x: dict, k: int):
 		"""Initializes the class with Integrative NMF algorithm parameters
