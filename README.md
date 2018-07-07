@@ -1,6 +1,6 @@
 # BigNmf
 
-[![Documentation Status](//readthedocs.org/projects/bignmf/badge/?version=latest)](https://bignmf.readthedocs.io/en/latest/?badge=latest)
+[![Read the Docs](https://readthedocs.org/projects/bignmf/badge/?version=latest)](https://bignmf.readthedocs.io/en/latest/?badge=latest)
 
 BigNmf (Big Data NMF) is a python package for performing single NMF and joint NMF algorithms. [NMF](https://en.wikipedia.org/wiki/Non-negative_matrix_factorization)   (Non-negative matrix factorization) is a unsupervised classification algorithm.
 
@@ -61,4 +61,4 @@ model.calc_consensus_matrices()
 print(model.h_cluster)
 ```
 
-[Here](https://bignmf.readthedocs.io/en/latest/) is the extensive documentation for more details. 
+[Here](https://bignmf.readthedocs.io/en/latest/) is the extensive documentation for more details.
