@@ -3,6 +3,10 @@ import numpy as np
 import pandas as pd 
 
 class StandardNmf(SnmfBase):
+	'''
+	The update rule used in Standard Single NMF has been taken from the paper 'Learning the parts of objects by non-negative matrix factorization', 
+	by Lee, Daniel D. and Seung, H. Sebastian published in Nature.
+	'''
 	def __init__(self, x: pd.DataFrame, k: int):
 		"""Initialize the class and assign vales to class variables.
 
