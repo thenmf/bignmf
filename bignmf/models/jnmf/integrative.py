@@ -26,18 +26,11 @@ class IntegrativeJnmf(JnmfBase):
 
 	def initialize_wh(self):
 		"""Initializes the model variables
-<<<<<<< HEAD
 			
 			Model Variables:
 				W: Common submatrix 
 				H: Dictionary of submatrices for each of the individual datasets with the same keys as the input dictionary 
 				V: An integrative NMF variable with dimensions the same as ``H``
-=======
-			:math:`n` = number of 
-
-			Parameters:
-				W: Common submatrix with dimension
->>>>>>> 4721bab9dc5c9915de979605a9907847b0be42a1
 		"""
 		number_of_samples = list(self.x.values())[0].shape[0]
 		self.w = np.random.rand(number_of_samples, self.k)
