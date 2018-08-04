@@ -10,6 +10,8 @@ scipy = "*"
 fastcluster = "*"
 
 [dev-packages]
+pytest = "*"
+tox = "*"
 
 [requires]
 python_version = "3.7"
