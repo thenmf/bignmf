@@ -1,4 +1,20 @@
 from bignmf.datasets.datasets import Datasets
+import pytest
 
-def test_read():
+valid_datasets = ["SimulatedX2",
+                  "SimulatedX3",
+                  "SimulatedX1"
+                  ]
+
+def test_list_all():
+    print(valid_datasets)
     assert Datasets.list_all != None
+
+def test_invalid_read():
+    with pytest.raises(FileNotFoundError):
+        Datasets.read('x')
+
+@pytest.mark.parametrize("dataset_name", valid_datasets)
+def test_valid_read(dataset_name):
+    data = Datasets.read(dataset_name)
+    assert data.__class__.__name__ == 'DataFrame'
