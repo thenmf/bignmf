@@ -5,8 +5,8 @@ python:
 install:
   - pip install -r requirements.txt
   - pip install .
-  - ls bignmf/datasets/
-script:
+
+  script:
   - pytest
 after_success:
   - coveralls
