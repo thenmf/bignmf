@@ -12,6 +12,7 @@ fastcluster = "*"
 [dev-packages]
 pytest = "*"
 tox = "*"
+twine = "*"
 
 [requires]
 python_version = "3.7"
