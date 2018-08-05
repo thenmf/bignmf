@@ -22,7 +22,7 @@ setuptools.setup(
         'numpy',
         'pandas',
         'fastcluster',
-        'scipy'
-    ]
-
+        'scipy',
+    ],
+    include_package_data=True
 )
