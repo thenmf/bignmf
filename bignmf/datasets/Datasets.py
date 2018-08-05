@@ -26,7 +26,7 @@ class Datasets():
     	"""
 		file_path = pth(__file__).parent / pth("%s.csv"%data_name)
 		if not file_path.exists():
-			raise FileNotFoundError('The specified dataset does not exist. Run Dataset.list_all() to list tha available datasets.')
+			raise FileNotFoundError('The specified dataset does not exist. Run Dataset.list_all() to list the available datasets.')
 		else:
 			X = pd.read_csv(file_path, index_col=0, header=0, na_values='NaN')
 			X = X.fillna(0)
