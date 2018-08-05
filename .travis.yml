@@ -7,6 +7,6 @@ install:
   - pip install -r test_requirements.txt
   - pip install .
 script:
-  - pytest
+  - pytest --cov bignmf
 after_success:
   - coveralls
