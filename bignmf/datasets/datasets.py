@@ -27,7 +27,7 @@ class Datasets():
 		file_path = pth(__file__).parent / pth("%s.csv"%data_name)
 		print(__file__)
 		print(pth(__file__).absolute)
-		for child in pth(__file__)parent.iterdir():
+		for child in pth(__file__).parent.iterdir():
 			print(child)
 		X = pd.read_csv(file_path, index_col=0, header=0, na_values='NaN')
 		if not file_path.exists():
