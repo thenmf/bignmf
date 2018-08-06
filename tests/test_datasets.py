@@ -6,9 +6,12 @@ valid_datasets = ["SimulatedX2",
                   "SimulatedX1"
                   ]
 
-def test_list_all():
-    print(valid_datasets)
-    assert Datasets.list_all != None
+def test_list_all(capsys):
+    Datasets.list_all() 
+    captured = capsys.readouterr()
+    captured = captured.out.split('\n')
+    captured.pop()
+    assert captured == valid_datasets
 
 def test_invalid_read():
     with pytest.raises(FileNotFoundError):

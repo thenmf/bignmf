@@ -8,11 +8,13 @@ numpy = "*"
 pandas = "*"
 scipy = "*"
 fastcluster = "*"
+coverage = "*"
 
 [dev-packages]
 pytest = "*"
 tox = "*"
 twine = "*"
+pytest-cov = "*"
 
 [requires]
 python_version = "3.7"
