@@ -1,16 +1,17 @@
 from bignmf.datasets.datasets import Datasets
 import pytest
 
-valid_datasets = ["SimulatedX2",
+valid_datasets = {"SimulatedX2",
                   "SimulatedX3",
                   "SimulatedX1"
-                  ]
+                 }
 
 def test_list_all(capsys):
     Datasets.list_all() 
     captured = capsys.readouterr()
     captured = captured.out.split('\n')
     captured.pop()
+    captured = set(captured)
     assert captured == valid_datasets
 
 def test_invalid_read():
