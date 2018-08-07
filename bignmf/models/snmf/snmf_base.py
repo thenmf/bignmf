@@ -15,6 +15,13 @@ class SnmfBase(NmfBase):
 			k (int): rank for factorization
 		"""
 		super().__init__(k)
+		if x.__class__.__name__ != 'DataFrame':
+			raise ValueError('The given dataset is not a DataFrame')
+		if np.sum(x.values<0) > 0:
+			raise ValueError('The input matrix must be non-negative')
+		if k.__class__.__name__ != 'int' or k < 2:
+			raise ValueError('The given rank is invalid. Choose an integral rank greater than 1.')
+
 		self.row_index = list(x.index)
 		self.column_index = list(x)
 		self.x = x.values
