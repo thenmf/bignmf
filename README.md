@@ -55,7 +55,6 @@ trials = 50
 lamb = 0.1
 
 model = IntegrativeJnmf(data_dict, k, lamb)
-model = StandardNmf(data,k)
 model.run(trials, iter, verbose=0)
 print(model.error)
 model.cluster_data()
