@@ -4,7 +4,21 @@
 [![PyPI version](https://badge.fury.io/py/bignmf.svg)](https://badge.fury.io/py/bignmf)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-BigNmf (Big Data NMF) is a python package for performing single NMF and joint NMF algorithms. [NMF](https://en.wikipedia.org/wiki/Non-negative_matrix_factorization)   (Non-negative matrix factorization) is a unsupervised classification algorithm.
+BigNmf (Big Data NMF) is a python 3 package for conducting analysis using NMF algorithms.
+
+## NMF Introduction 
+[NMF](https://en.wikipedia.org/wiki/Non-negative_matrix_factorization)   (Non-negative matrix factorization) factorizes a non-negative input matrix into non-negative factors. The algorithm has an inherent clustering property and has been gaining attention in various fields especially in biological data analysis. 
+
+_Brunet et al_ in their [paper](http://www.pnas.org/content/101/12/4164) demonstrated NMF's superior capability in clustering the [leukemia dataset](https://www.kaggle.com/crawford/gene-expression) compared to standard clustering algorithms like Hierarchial clustering and Self-organizeing maps.
+
+## Available algorithms
+The following are the algorithms currently available. If you would like to know more about the algorithm, the links below lead to their papers.
+* Single NMF
+    1. Standard Single NMF
+    1. Sparse NMF
+* Joint NMF
+    1. Standard Joint NMF
+    2. Integrative NMF
 
 ## Installation
 
@@ -15,8 +29,7 @@ pip3 install bignmf
 ```
 
 ## Usage
-
-The following is an example code snippet for running the nmf.
+The following examples illustrate a typical usage of the algorithm.
 
 ### 1. Single NMF
 
@@ -31,11 +44,18 @@ iter =100
 trials = 50
 
 model = StandardNmf(data,k)
+
+# Runs the model
 model.run(trials, iter, verbose=0)
 print(model.error)
+
+# Clusters the data
 model.cluster_data()
-model.calc_consensus_matrices()
 print(model.h_cluster)
+
+#Calculates the consensus matrices
+model.calc_consensus_matrices() 
+print(model.consensus_matrix_w)
 ```
 
 ### 2. Joint NMF
@@ -55,11 +75,17 @@ trials = 50
 lamb = 0.1
 
 model = IntegrativeJnmf(data_dict, k, lamb)
+# Runs the model
 model.run(trials, iter, verbose=0)
 print(model.error)
+
+# Clusters the data
 model.cluster_data()
-model.calc_consensus_matrices()
 print(model.h_cluster)
+
+#Calculates the consensus matrices
+model.calc_consensus_matrices() 
+print(model.consensus_matrix_w)
 ```
 
 [Here](https://bignmf.readthedocs.io/en/latest/) is the extensive documentation for more details.
