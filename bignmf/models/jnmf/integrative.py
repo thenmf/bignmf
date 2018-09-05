@@ -11,13 +11,13 @@ class IntegrativeJnmf(JnmfBase):
 		PLoS ONE 12(5): e0176278. 
 	"""
 
-	def __init__(self, x: dict, k: int, lamb: int):
+	def __init__(self, x: dict, k: int, lamb: float):
 		"""Initializes the class with Integrative NMF algorithm parameters
 		
 		Args:
 			x (dict): Input matrices on which we have to do NMF. Dictionary containing the input matrices as DataFrames. 
 					  The common dimension between the matrices should be the row.
-			k (int): Rank for factorization
+			k (float): Rank for factorization
 			lamb (int): Hyper-parameter for the Integrative NMF algorithm that controls the rate of learning
 		"""
 		super().__init__(x, k)
