@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="bignmf",
-    version="1.0.4",
+    version="1.0.5",
     author="Haran Rajkumar, Vaibhav Kulshrestha",
     author_email="haranrajkumar97@gmail.com, vaibhav1kulshrestha@gmail.com",
     description="Non-negative matrix factorization",
