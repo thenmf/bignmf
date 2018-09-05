@@ -12,13 +12,13 @@ BigNmf (Big Data NMF) is a python 3 package for conducting analysis using NMF al
 _Brunet et al_ in their [paper](http://www.pnas.org/content/101/12/4164) demonstrated NMF's superior capability in clustering the [leukemia dataset](https://www.kaggle.com/crawford/gene-expression) compared to standard clustering algorithms like Hierarchial clustering and Self-organizeing maps.
 
 ## Available algorithms
-The following are the algorithms currently available. If you would like to know more about the algorithm, the links below lead to their papers.
+The following are the algorithms currently available. If you would like to know more about the algorithm, the links below lead to their papers of origin.
 * Single NMF
-    1. Standard Single NMF
-    1. Sparse NMF
+    1. [Standard Single NMF](https://www.nature.com/articles/44565)
+    1. [Sparse NMF](https://www.merl.com/publications/docs/TR2015-023.pdf)
 * Joint NMF
-    1. Standard Joint NMF
-    2. Integrative NMF
+    1. [Standard Joint NMF](https://www.ncbi.nlm.nih.gov/pubmed/25411328)
+    2. [Integrative NMF](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0176278)
 
 ## Installation
 
@@ -29,7 +29,7 @@ pip3 install bignmf
 ```
 
 ## Usage
-The following examples illustrate a typical usage of the algorithm.
+The following examples illustrate typical usage of the algorithm.
 
 ### 1. Single NMF
 
