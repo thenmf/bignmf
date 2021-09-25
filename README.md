@@ -3,6 +3,7 @@
 [![Read the Docs](https://readthedocs.org/projects/bignmf/badge/?version=latest)](https://bignmf.readthedocs.io/en/latest/?badge=latest)
 [![PyPI version](https://badge.fury.io/py/bignmf.svg)](https://badge.fury.io/py/bignmf)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Downloads](https://pepy.tech/badge/bignmf)](https://pepy.tech/project/bignmf)
 
 BigNmf (Big Data NMF) is a python 3 package for conducting analysis using NMF algorithms.
 
