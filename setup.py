@@ -19,10 +19,10 @@ setuptools.setup(
         "Operating System :: OS Independent",
     ),
     install_requires=[
-        'numpy',
-        'pandas',
-        'fastcluster',
-        'scipy',
+        "numpy",
+        "pandas",
+        "fastcluster",
+        "scipy",
     ],
-    include_package_data=True
+    include_package_data=True,
 )
