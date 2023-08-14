@@ -7,7 +7,8 @@ from scipy.spatial.distance import squareform
 
 
 class NmfBase(ABC):
-    """Base abstract NMF class.
+    """
+    Base abstract NMF class.
     All Joint NMF and Single NMF classes inherit from this class.
     """
 
@@ -20,7 +21,8 @@ class NmfBase(ABC):
         self.k = k
 
     def wrapper_update(self, iter, verbose=0):
-        """Updates the weights for the number of iterations specified.
+        """
+        Updates the weights for the number of iterations specified.
 
         Args:
                 iter (int): Number of iterations through which the model should update.
@@ -35,7 +37,8 @@ class NmfBase(ABC):
 
     @classmethod
     def connectivity_matrix(cls, x: np.array, axis):
-        """Calculates the connecitivity matrix along the given axis.
+        """
+        Calculates the connectivity matrix along the given axis.
 
         The function first classifies the input matrix along the specified axis and then matrix multiplies it to itself
         keeping the rank-side common.
@@ -58,7 +61,8 @@ class NmfBase(ABC):
 
     @staticmethod
     def reorder_consensus_matrix(M: np.array):
-        """Reoders the consensus matrix.
+        """
+        Reorders the consensus matrix.
 
         Args:
                 M (np.array): Input matrix
@@ -79,7 +83,8 @@ class NmfBase(ABC):
 
     @staticmethod
     def cophenetic_correlation(consensus_matrix):
-        """Calculates the cophentic correlation co-efficient from a consensus matrix.
+        """
+        Calculates the cophenetic correlation co-efficient from a consensus matrix.
 
         Arguments:
                 consensus_matrix (np.array): the unordered consensus matrix
@@ -94,7 +99,8 @@ class NmfBase(ABC):
 
     @staticmethod
     def classify_by_max(x: np.array, axis):
-        """Classifies the input array based on max filter along the specified axis
+        """
+        Classifies the input array based on max filter along the specified axis
 
         Args:
                 x (np.array): Input array
@@ -103,11 +109,13 @@ class NmfBase(ABC):
         Returns:
                 np.array: Classified array in one-hot format
         """
-        return (x == np.amax(x, axis=axis)).astype(float)
+        left, right = x.align(np.amax(x, axis=axis), axis=axis, copy=False)
+        return (left == right).astype(float)
 
     @classmethod
     def cluster_matrix(cls, x: np.array, axis):
-        """Clusters the provided matrix along the given axis
+        """
+        Clusters the provided matrix along the given axis
 
         Args:
                 x (np.array): Input matrix
